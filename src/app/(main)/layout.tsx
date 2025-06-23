@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Lato, Londrina_Solid } from 'next/font/google'
 import '../globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer/footer'
 import { Toaster } from 'sonner'
@@ -33,17 +32,10 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning className={`${lato.variable} ${londrina.variable}`}>
       <body className={`${lato.className} antialiased overflow-x-hidden min-h-screen`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'
-          disableTransitionOnChange
-          enableSystem={false}
-        >
-          <Navbar />
-          <main className='px-5 md:px-20'>{children}</main>
-          <Footer />
-          <Toaster />
-        </ThemeProvider>
+        <Navbar />
+        <main className='px-5 md:px-20'>{children}</main>
+        <Footer />
+        <Toaster />
       </body>
     </html>
   )

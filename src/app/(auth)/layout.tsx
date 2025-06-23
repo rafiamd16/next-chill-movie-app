@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Lato, Londrina_Solid } from 'next/font/google'
 import '../globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from 'sonner'
 
 const lato = Lato({
@@ -31,15 +30,8 @@ export default function AuthLayout({
   return (
     <html lang='en' suppressHydrationWarning className={`${lato.variable} ${londrina.variable}`}>
       <body className={`${lato.className} antialiased overflow-x-hidden`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'
-          disableTransitionOnChange
-          enableSystem={false}
-        >
-          <main>{children}</main>
-          <Toaster />
-        </ThemeProvider>
+        <main>{children}</main>
+        <Toaster />
       </body>
     </html>
   )
