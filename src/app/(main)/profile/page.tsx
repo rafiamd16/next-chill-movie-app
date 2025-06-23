@@ -1,7 +1,6 @@
 'use client'
 
 import Loading from '@/app/loading'
-import CardContainer from '@/components/card-container'
 import MovieList from '@/components/movie-list'
 import ProfileForm from '@/components/profile/profile-form'
 import useUserStore from '@/store/useUserStore'
