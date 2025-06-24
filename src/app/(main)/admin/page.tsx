@@ -15,7 +15,6 @@ const AdminPage = () => {
   const fetchMovies = useMovieStore((s) => s.fetchMovies)
   const createMovie = useMovieStore((s) => s.createMovie)
   const updateMovie = useMovieStore((s) => s.updateMovie)
-  const deleteMovie = useMovieStore((s) => s.deleteMovie)
 
   useEffect(() => {
     fetchMovies()
