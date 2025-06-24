@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning className={`${lato.variable} ${londrina.variable}`}>
       <body className={`${lato.className} antialiased overflow-x-hidden min-h-screen`}>
         <Navbar />
-        <main className='px-5 md:px-20'>{children}</main>
+        <main>{children}</main>
         <Footer />
         <Toaster />
       </body>

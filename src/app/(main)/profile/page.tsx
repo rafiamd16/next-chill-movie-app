@@ -24,7 +24,7 @@ const ProfilePage = () => {
   if (!hydrated || !user) return <Loading />
 
   return (
-    <div className='py-10'>
+    <div className='px-5 py-10 md:px-20'>
       <h1 className='hidden mb-8 text-4xl font-bold lg:block'>Profil Saya</h1>
       <div className='flex flex-col-reverse w-full gap-5 mb-20 lg:gap-20 lg:flex-row'>
         <ProfileForm />

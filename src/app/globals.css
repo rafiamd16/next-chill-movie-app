@@ -46,7 +46,7 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(14.479% 0.00002 271.152);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -151,4 +151,12 @@
   100% {
     transform: rotate(1turn);
   }
+}
+
+img {
+  transition: all 0.3s ease-in-out;
+}
+
+img:hover {
+  transform: scale(1.1);
 }

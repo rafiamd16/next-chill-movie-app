@@ -43,17 +43,8 @@ const AdminPage = () => {
     setSelectedMovie(movie)
   }
 
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteMovie(id)
-      toast.success('Movie deleted successfully', { position: 'top-center', richColors: true })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
-    <div className='max-w-screen-md min-h-[90vh] py-10 mx-auto space-y-10'>
+    <div className='max-w-screen-md min-h-[90vh] px-5 md:px-20 py-10 mx-auto space-y-10'>
       <h1 className='text-xl font-bold md:text-3xl'>Admin Movie</h1>
       <AdminForm
         selectedMovie={selectedMovie}
@@ -64,7 +55,7 @@ const AdminPage = () => {
       <div className='space-y-4'>
         <h2 className='text-xl font-bold md:text-2xl'>Movie List</h2>
         <div className='p-4 bg-[#22282A] rounded-md'>
-          <MovieTable movies={movies} handleEdit={handleEdit} handleDelete={handleDelete} />
+          <MovieTable movies={movies} handleEdit={handleEdit} />
         </div>
       </div>
     </div>

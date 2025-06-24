@@ -1,5 +1,6 @@
 'use client'
 
+import DeleteDialogMovie from '@/components/admin/delete-dialog-movie'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -18,17 +20,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import useMovieStore from '@/store/useMovieStore'
 import { Movie } from '@/types/movie'
 import { Ellipsis } from 'lucide-react'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 interface MovieTableProps {
   movies: Movie[]
   handleEdit: (movie: Movie) => void
-  handleDelete: (id: number) => void
 }
 
-const MovieTable: FC<MovieTableProps> = ({ movies, handleEdit, handleDelete }) => {
+const MovieTable: FC<MovieTableProps> = ({ movies, handleEdit }) => {
+  const [deleteDialogMovie, setDeleteDialogMovie] = useState<Movie | null>(null)
+  const isLoading = useMovieStore((s) => s.isLoading)
+
   return (
     <Table>
       <TableCaption>A list of your recent Movie.</TableCaption>
@@ -37,11 +42,30 @@ const MovieTable: FC<MovieTableProps> = ({ movies, handleEdit, handleDelete }) =
           <TableHead className='text-background'>No</TableHead>
           <TableHead className='text-background'>Movie</TableHead>
           <TableHead className='text-background'>Title</TableHead>
-          <TableHead className='text-background'>Action</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {movies.length > 0 ? (
+        {/* Skeleton */}
+        {isLoading ? (
+          <TableRow>
+            <TableCell>
+              <Skeleton className='h-5' />
+            </TableCell>
+            <TableCell>
+              <Skeleton className='h-5' />
+            </TableCell>
+            <TableCell>
+              <Skeleton className='h-5' />
+            </TableCell>
+          </TableRow>
+        ) : isLoading && movies.length === 0 ? (
+          <TableRow>
+            <TableCell colSpan={5} className='h-24 text-center'>
+              No results.
+            </TableCell>
+          </TableRow>
+        ) : (
           movies.map((movie, i) => (
             <TableRow key={movie.id}>
               <TableCell className='font-medium'>{i + 1}</TableCell>
@@ -66,10 +90,15 @@ const MovieTable: FC<MovieTableProps> = ({ movies, handleEdit, handleDelete }) =
                     <DropdownMenuLabel className='font-bold'>Action</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                      <DropdownMenuItem onClick={() => handleEdit(movie)}>Update</DropdownMenuItem>
                       <DropdownMenuItem
-                        onClick={() => handleDelete(movie.id)}
-                        className='text-red-500'
+                        className='cursor-pointer'
+                        onClick={() => handleEdit(movie)}
+                      >
+                        Update
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => setDeleteDialogMovie(movie)}
+                        className='text-red-500 cursor-pointer'
                       >
                         Delete
                       </DropdownMenuItem>
@@ -77,14 +106,15 @@ const MovieTable: FC<MovieTableProps> = ({ movies, handleEdit, handleDelete }) =
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>
+              <DeleteDialogMovie
+                movie={movie}
+                openDialog={deleteDialogMovie?.id === movie.id}
+                setOpenDialog={(isOpen) => {
+                  if (!isOpen) setDeleteDialogMovie(null)
+                }}
+              />
             </TableRow>
           ))
-        ) : (
-          <TableRow>
-            <TableCell colSpan={5} className='h-24 text-center'>
-              No results.
-            </TableCell>
-          </TableRow>
         )}
       </TableBody>
     </Table>
