@@ -28,7 +28,7 @@ const AdminPage = () => {
     fetchMovies()
   }, [user, hydrated, fetchMovies])
 
-  if (!hydrated || !user) return null
+  if (!hydrated || !user) return <Loading />
 
   const onSubmit = async (data: MovieFormSchema) => {
     setIsSubmitting(true)
