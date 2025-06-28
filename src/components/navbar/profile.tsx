@@ -11,7 +11,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronDown, LogIn, LogOut, Star, User } from 'lucide-react'
 import clsx from 'clsx'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import useUserStore from '@/store/useUserStore'
 import { toast } from 'sonner'
 
@@ -20,11 +20,13 @@ const Profile = () => {
   const logout = useUserStore((s) => s.logout)
   const currentUser = useUserStore((s) => s.currentUser)
   const pathname = usePathname()
+  const router = useRouter()
 
   const handleLogout = () => {
     logout()
     setOpen(false)
     toast.success('Logout successful', { position: 'top-center', richColors: true })
+    router.push('/login')
   }
 
   return (

@@ -56,7 +56,7 @@ const AdminForm: FC<AdminFormProps> = ({
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder='Title' {...field} />
+                  <Input className='h-[50px]' placeholder='Title' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -69,7 +69,7 @@ const AdminForm: FC<AdminFormProps> = ({
               <FormItem>
                 <FormLabel>Rating</FormLabel>
                 <FormControl>
-                  <Input type='number' placeholder='Rating' {...field} />
+                  <Input className='h-[50px]' type='number' placeholder='Rating' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -82,7 +82,7 @@ const AdminForm: FC<AdminFormProps> = ({
               <FormItem>
                 <FormLabel>Image URL</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter image URL' {...field} />
+                  <Input className='h-[50px]' placeholder='Enter image URL' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,7 +99,7 @@ const AdminForm: FC<AdminFormProps> = ({
             {selectedMovie !== null && (
               <Button
                 variant='outline'
-                className='font-bold text-foreground'
+                className='font-bold text-foreground cursor-pointer'
                 type='button'
                 onClick={() => setSelectedMovie(null)}
               >

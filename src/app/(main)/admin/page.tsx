@@ -1,10 +1,13 @@
 'use client'
 
+import Loading from '@/app/loading'
 import AdminForm from '@/components/admin/admin-form'
 import MovieTable from '@/components/admin/movie-table'
 import { MovieFormSchema } from '@/lib/zod'
 import useMovieStore from '@/store/useMovieStore'
+import useUserStore from '@/store/useUserStore'
 import { Movie } from '@/types/movie'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -15,10 +18,17 @@ const AdminPage = () => {
   const fetchMovies = useMovieStore((s) => s.fetchMovies)
   const createMovie = useMovieStore((s) => s.createMovie)
   const updateMovie = useMovieStore((s) => s.updateMovie)
+  const user = useUserStore((s) => s.currentUser)
+  const hydrated = useUserStore((s) => s.hasHydrated)
+  const router = useRouter()
 
   useEffect(() => {
+    if (!hydrated) return
+    if (!user) router.replace('/login')
     fetchMovies()
-  }, [fetchMovies])
+  }, [user, hydrated, fetchMovies])
+
+  if (!hydrated || !user) return null
 
   const onSubmit = async (data: MovieFormSchema) => {
     setIsSubmitting(true)
@@ -43,7 +53,7 @@ const AdminPage = () => {
   }
 
   return (
-    <div className='max-w-screen-md min-h-[90vh] px-5 md:px-20 py-10 mx-auto space-y-10'>
+    <div className='max-w-screen-lg min-h-[90vh] px-5 md:px-20 py-10 mx-auto space-y-10'>
       <h1 className='text-xl font-bold md:text-3xl'>Admin Movie</h1>
       <AdminForm
         selectedMovie={selectedMovie}
